@@ -21,7 +21,7 @@ variable "cluster_name" {
 }
 
 variable "kubernetes_version" {
-  description = "Kubernetes version"
+  description = "Kubernetes version — verify latest supported with: aws eks describe-addon-versions"
   type        = string
   default     = "1.32"
 }
@@ -51,9 +51,9 @@ variable "public_subnet_cidrs" {
 }
 
 variable "node_instance_types" {
-  description = "EC2 instance types for the managed node group"
+  description = "EC2 instance types for the managed node group — t3.small is enough for sandbox"
   type        = list(string)
-  default     = ["t3.medium"]
+  default     = ["t3.small"]
 }
 
 variable "node_min_size" {

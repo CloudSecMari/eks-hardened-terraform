@@ -30,11 +30,14 @@ data "aws_caller_identity" "current" {}
 
 ###############################################################
 # VPC
+# Module: terraform-aws-modules/vpc/aws
+# Version: 6.6.1 (latest as of 2025-04-02)
+# Source:  https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
 ###############################################################
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.0"
+  version = "6.6.1"
 
   name = "${var.cluster_name}-vpc"
   cidr = var.vpc_cidr
@@ -61,8 +64,8 @@ module "vpc" {
   }
 
   private_subnet_tags = {
-    "kubernetes.io/role/internal-elb"          = "1"
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/role/internal-elb"                   = "1"
+    "kubernetes.io/cluster/${var.cluster_name}"         = "shared"
   }
 
   tags = local.common_tags
@@ -117,7 +120,7 @@ module "eks" {
       configuration_values = jsonencode({
         env = {
           ENABLE_PREFIX_DELEGATION = "true"
-          WARM_PREFIX_TARGET       = "1"
+          WARM_PREFIX_TARGET        = "1"
         }
       })
     }
@@ -233,17 +236,4 @@ resource "aws_security_group_rule" "cluster_api_internal" {
   protocol          = "tcp"
   cidr_blocks       = [var.vpc_cidr]
   security_group_id = module.eks.cluster_security_group_id
-}
-
-###############################################################
-# LOCALS
-###############################################################
-
-locals {
-  common_tags = {
-    Environment = var.environment
-    ManagedBy   = "terraform"
-    Cluster     = var.cluster_name
-    Owner       = "devops"
-  }
 }
