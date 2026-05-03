@@ -9,7 +9,7 @@ aws_region  = "us-east-1"
 aws_profile = "default" # Change to your AWS CLI profile name
 
 cluster_name       = "eks-hardened"
-kubernetes_version = "1.32" # Verify latest: aws eks describe-addon-versions --query 'addons[0].addonVersions[0].compatibilities[].clusterVersion' --output text
+kubernetes_version = "1.35" # Verify latest: aws eks describe-addon-versions --query 'addons[0].addonVersions[0].compatibilities[].clusterVersion' --output text
 environment        = "dev"
 
 vpc_cidr             = "10.0.0.0/16"

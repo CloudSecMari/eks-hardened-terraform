@@ -23,7 +23,7 @@ variable "cluster_name" {
 variable "kubernetes_version" {
   description = "Kubernetes version — verify latest supported with: aws eks describe-addon-versions"
   type        = string
-  default     = "1.32"
+  default     = "1.35"
 }
 
 variable "environment" {
